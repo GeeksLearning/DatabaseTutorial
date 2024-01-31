@@ -1,0 +1,91 @@
+1. Installation floder 
+	C:\Program Files\MySQL
+2. Add the path to the environment variables (System variable -->Path) paste the following paste	
+	C:\Program Files\MySQL\MySQL Server 8.0\bin
+3. check the version , by opening CMD 
+	mysql --version 
+	
+4. Connect or Start the Server
+	mysql -u root -p
+	
+	
+shell commands;
+===============
+
+show databases --> list all dbs;
+use database-name --> change or switch the db 
+show tables --> list all tables 
+
+
+
+SQL COMMANDS
+===============
+CREATE DATABASE IF NOT EXISTS Car;
+DROP DATABASE IF EXISTS car;
+
+creation
+-------------------
+
+CREATE TABLE student(
+	student_id int(5) NOT NULL,
+	student_name varchar(20) NOT NULL,
+	class varchar(15) NOT NULL,
+	gpa float(2,2);
+	address varchar(20),
+	UNIQUE KEY(student_id)
+);
+
+
+desc student ---> shows schema or design of a table 
+
+
+insertion
+----------------------
+1. INSERT INTO student(column_list)
+VALUES(value_list);
+
+
+2. INSERT INTO student VALUES(value_list);
+
+INSERT INTO student VALUES(101,"Kumar","SEMIII",2.1,"PO BOX 542 NY Street1");
+
+selection 
+==================
+-  SELECT col1,col2... coln FROM tablename;
+
+-  SELECT * FROM tablename
+
+ex: SELECT student_id,class from student;
+
+
+CREATE TABLE TestTable AS
+    SELECT person_id, first_name
+    FROM person;
+	
+	
+   ALTER TABLE person
+   DROP COLUMN email;
+   
+   
+   
+   CREATE TABLE student1 (
+    ID int NOT NULL,
+    LastName varchar(255) NOT NULL,
+    FirstName varchar(255) NOT NULL,
+    Age int
+);
+
+
+CREATE TABLE person1 (
+    ID int NOT NULL,
+    LastName varchar(255) NOT NULL,
+    FirstName varchar(255),
+    Age int,
+    UNIQUE (ID)
+);
+
+CREATE TABLE product (
+	productID int AUTO_INCREMENT PRIMARY KEY,
+	productName varchar(20) NOT NULL,
+	price double
+	);

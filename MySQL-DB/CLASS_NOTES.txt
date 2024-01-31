@@ -1,0 +1,540 @@
+TYPES OF DATA BASE
+==============================
+
+SQL Databases
+	MySQL
+	Oracle
+	PostgreSQL
+	Microsoft Server DB
+	AWS Dynamo DB
+	
+NOSQL Databases
+	MongoDB
+	Redis
+	Cassandra
+	Elastic Search
+	
+	
+
+=> To check version
+ mysql --version
+
+=> Login Command 
+	mysql -u root -p
+	mysql -u root -pPassWord
+
+popular shell commands
+============================
+	show databases;
+	use databasename;
+	show tables;
+	describe table_name;
+
+
+=> CREATE DATABASE databasename;
+=> DROP DATABASE databasename;
+
+
+TYPES OF STATEMENTS 
+===========================
+	1.DDL(Data_Definition_Lang) 			: CREATE , DROP, ALTER, TRUNCATE
+	2.DML (Data_Manipulation_Language) 		: INSERT, UPDATE,DELETE
+	3.DCL(Data_Control_Lang)				: GRANT, REVOKE
+	4.TCL(Transaction_Control_Lang) 		: COMMIT , ROLLBACK 
+	5.DQL(Data_Query_Lang)					: SELECT
+	
+
+=> CREATE TABLE table_name (
+    column1 datatype constraint,
+    column2 datatype constraint,
+    column3 datatype constraint,
+   ....
+);
+
+	CREATE TABLE student_t (
+		id int,
+		name varchar(25),
+		age int,
+		grade double
+	);
+
+=> INSERT INTO TABLE_NAME VALUES(value1,value2, ... valuen);
+	INSERT INTO student_t VALUES(102,'srikanth',25,3.9);
+
+=> SELECT * FROM TABLE_NAME;
+
+	SELECT * FROM student_t;
+	
+
+DATA TYPES
+=================
+	=> String Data types
+		CHAR(5) [0-255]
+		VARCHAR(10) [0-65535]
+		TINYBLOB
+		BLOB
+		MEDIUMBLOB
+		LARGEBLOB
+		TEXT
+		LONGTEXT
+		
+	=> Numeric Data Types
+		BIT
+		TINYBIT
+		SMALLINT
+		MEDIUMINT
+		INT
+		BIGINT
+		FLOAT(size,d)
+		FLOAT(p)
+		DOUBLE(size,d)
+		
+		
+	=> Date & Time Data Types
+		 DATE : YYYY-MM-DD
+		 DATETIME YYYY-MM-DD hh:mm:ss
+		 TIMESTAMP
+		 TIME : hh:mm:ss
+		 YEAR [ 4 digit]
+
+
+=> create employee table with following columns 
+	id, name, age, salary, dept_name, manager_name, dob, doj, gender (M or F)
+
+
+	create table employee_t(
+		id int,
+		name varchar (25),
+		age int,
+		salary double,
+		depart_name varchar (30),
+		manager_name varchar (20),
+		dob date,
+		doj date,
+		gender CHAR(1)
+	);
+
+
+
+insert into employee_t values (111,'kirthi',24,50000,'hr_manager','santosh','1998-08-06','2022-09-20','f');
+
+
+CREATE TABLE person_t (
+	id int PRIMARY KEY,
+	name varchar(255) NOT NULL,
+	age int
+);
+
+
+DAY3 | CONSTRAINTS
+===================
+1. NOT NULL -> ensures column must have not null value always in new insertion/updation, will fail on null values
+2. UNIQUE -> ensures column must have uniquness, will accept default value as NULL
+3. PRIMARY KEY ->  ensures columns must have UNIQUE and NOT NULL
+4. CHECK 
+5. DEFAULT
+6. AUTO INCREMENT 
+7. FOREIGN KEY 
+
+CREATE TABLE hospital_record (
+id int,
+name varchar (25),
+age int,
+doj date,
+total_bill double,
+department varchar(30),
+doctor_name varchar(20)
+);
+
+INSERT INTO hospital_record VALUES (123, 'sudha',25,'2023-09-08',86000,'cardio','satish_reddy');
+
+
+INSERT INTO hospital_record VALUES (134,'pradeep',26,'2023-07-23',98000,'neuro','harshavardhan');
+
+INSERT INTO hospital_record VALUES (154,'kavya',29,'2022-07-12',29000,'ortho','kirthireddy');
+
+
+CREATE TABLE person_NN_t (
+    id int NOT NULL,
+    first_name varchar(255) NOT NULL,
+    last_name varchar(255) NOT NULL,
+    age int
+);
+
+
+CREATE TABLE person_unique_t (
+    id int NOT NULL,
+    lastname varchar(255) NOT NULL,
+    firstname varchar(255),
+    age int,
+	email varchar(25),
+    CONSTRAINT UC_person UNIQUE(id,email)
+);
+
+-- Example 1
+INSERT INTO person_unique_t (id, lastname, firstname, age, email)
+VALUES (1, 'Doe', 'John', 25, 'john.doe@example.com');
+
+-- Example 2
+INSERT INTO person_unique_t (id, lastname, firstname, age, email)
+VALUES (2, 'Smith', 'Jane', 30, 'jane.smith@example.com');
+
+-- Example 3
+INSERT INTO person_unique_t (id, lastname, firstname, age, email)
+VALUES (3, 'Johnson', 'Alice', 22, 'alice.johnson@example.com');
+
+-- Example 4
+INSERT INTO person_unique_t (id, lastname, firstname, age, email)
+VALUES (3, 'Brown', 'David', 28, 'david.brown@example.com');
+
+-- Example 5
+INSERT INTO person_unique_t (id, lastname, firstname)
+VALUES (5, 'Taylor', 'Emma');
+
+-- Example 6
+INSERT INTO person_unique_t (id, lastname, firstname, age)
+VALUES (6, 'Anderson', 'Michael', 35);
+
+-- Example 7
+INSERT INTO person_unique_t (id, lastname, firstname, age, email)
+VALUES (7, 'Williams', 'Olivia', 27, 'olivia.williams@example.com');
+
+3-alice.johnson@example.com-25 != 3-david.brown@example.com-25
+
+
+-----------------------
+
+CREATE TABLE person_primary_t (
+    ID int,
+    LastName varchar(255),
+    FirstName varchar(255),
+    Age int,
+    CONSTRAINT PK_Person PRIMARY KEY (ID,LastName)
+);
+
+-- Example 1
+INSERT INTO person_primary_t (ID, LastName, FirstName, Age)
+VALUES (1, 'Doe', 'John', 25);
+
+-- Example 2
+INSERT INTO person_primary_t (ID, LastName, FirstName, Age)
+VALUES (2, 'Smith', 'Jane', 30);
+
+-- Example 3
+INSERT INTO person_primary_t (ID, LastName, FirstName, Age)
+VALUES (3, 'Johnson', 'Alice', 22);
+
+
+INSERT INTO person_primary_t (ID, LastName, FirstName, Age)
+VALUES (4, 'Johnson', 'Alice', 22);
+
+INSERT INTO person_primary_t (ID, LastName, FirstName, Age)
+VALUES (4, 'Kumar', 'Alice', 22);
+
+INSERT INTO person_primary_t (ID, FirstName, Age)
+VALUES (5, 'srikanth', 22);
+
+
+INSERT into person_primary_t (ID, LastName, FirstName, Age) 
+VALUES (1, 'Doe', 'John', 25) , (2, 'Smith', 'Jane', 30) , (3, 'Johnson', 'Alice', 22);
+
+
+CHECK
+---------------------
+CREATE TABLE person_check_t (
+    ID int NOT NULL,
+    LastName varchar(255) NOT NULL,
+    FirstName varchar(255),
+    Age int,
+    CHECK (Age>=18)
+);
+
+-- Inserting a person with all information
+INSERT INTO person_check_t (ID, LastName, FirstName, Age) VALUES (1, 'Doe', 'John', 25);
+
+-- Inserting a person without specifying FirstName
+INSERT INTO person_check_t (ID, LastName, Age) VALUES (2, 'Smith', 30);
+
+-- Inserting a person with only mandatory fields (ID and LastName)
+INSERT INTO person_check_t (ID, LastName) VALUES (3, 'Johnson');
+
+-- Attempting to insert a person under 18 (will violate CHECK constraint)
+-- This query will result in an error
+-- INSERT INTO person_check_t (ID, LastName, Age) VALUES (4, 'Youngster', 15);
+
+
+DEFAULT
+==================
+CREATE TABLE person_default_t (
+    ID int NOT NULL,
+    LastName varchar(255) NOT NULL,
+    FirstName varchar(255),
+    Age int,
+    City varchar(255) DEFAULT 'Hyd'
+);
+
+-- Inserting a person with all information
+INSERT INTO person_default_t (ID, LastName, FirstName, Age, City) VALUES (1, 'Doe', 'John', 25, 'New York');
+
+-- Inserting a person without specifying FirstName and Age (Age will default to NULL, City will default to 'Hyd')
+INSERT INTO person_default_t (ID, LastName) VALUES (2, 'Smith');
+
+-- Inserting a person with only mandatory fields (ID and LastName), specifying City
+INSERT INTO person_default_t (ID, LastName, City) VALUES (3, 'Johnson', 'London');
+
+-- Inserting a person without specifying City (City will default to 'Hyd')
+INSERT INTO person_default_t (ID, LastName, FirstName, Age) VALUES (4, 'Youngster', 'Bob', 30);
+
+-- Inserting a person with all information, explicitly specifying default value for City
+INSERT INTO person_default_t (ID, LastName, FirstName, Age, City) VALUES (5, 'Williams', 'Alice', 28, DEFAULT);
+
+
+AUTO INCREMENT
+=================
+
+CREATE TABLE person_autoinc_t (
+    Personid int NOT NULL AUTO_INCREMENT,
+    LastName varchar(255) NOT NULL,
+    FirstName varchar(255),
+    Age int CHECK(Age>=18),
+    PRIMARY KEY (Personid)
+);
+
+-- Inserting a person with all information
+INSERT INTO person_autoinc_t (LastName, FirstName, Age) VALUES ('Doe', 'John', 25);
+
+-- Inserting a person without specifying FirstName and Age
+INSERT INTO person_autoinc_t (LastName) VALUES ('Smith');
+
+-- Inserting a person with only mandatory fields (LastName), specifying FirstName and Age
+INSERT INTO person_autoinc_t (LastName, FirstName, Age) VALUES ('Johnson', 'Alice', 30);
+
+-- Attempting to insert a person under 18 (will violate CHECK constraint)
+-- This query will result in an error
+-- INSERT INTO person_autoinc_t (LastName, Age) VALUES ('Youngster', 15);
+
+-- Inserting a person with all information
+INSERT INTO person_autoinc_t (LastName, FirstName, Age) VALUES ('Williams', 'Alice', 28);
+
+-- Inserting a person without specifying FirstName and Age
+INSERT INTO person_autoinc_t (LastName) VALUES ('Brown');
+
+-- Inserting a person with only mandatory fields (LastName), specifying FirstName and Age
+INSERT INTO person_autoinc_t (LastName, FirstName, Age) VALUES ('Johnson', 'Bob', 40);
+
+-- Inserting a person with all information
+INSERT INTO person_autoinc_t (LastName, FirstName, Age) VALUES ('Davis', 'Emily', 22);
+
+-- Inserting a person without specifying Age (Age will default to NULL)
+INSERT INTO person_autoinc_t (LastName, FirstName) VALUES ('Smith', 'Sam');
+
+-- Inserting a person with all information
+INSERT INTO person_autoinc_t (LastName, FirstName, Age) VALUES ('Miller', 'David', 35);
+
+-- Inserting a person without specifying FirstName and Age
+INSERT INTO person_autoinc_t (LastName) VALUES ('Taylor');
+
+-- Attempting to insert a person under 18 (will violate CHECK constraint)
+-- This query will result in an error
+-- INSERT INTO person_autoinc_t (LastName, Age) VALUES ('Youngster', 15);
+
+
+
+FOREIGN  KEY
+=====================
+create person table with following fields 
+	id,lastname,firstname,age 
+
+CREATE TABLE person_fk_t (
+	PersonID int NOT NULL,
+	lastname varchar (255) NOT NULL,
+	Firstname varchar(255),
+	age int,
+	PRIMARY KEY (PersonID),
+	CHECK (AGE>10)
+);
+
+CREATE TABLE orders_fk_t (
+    OrderID int NOT NULL,
+    OrderNumber int NOT NULL,
+    PersonID int,
+    PRIMARY KEY (OrderID),
+    FOREIGN KEY (PersonID) REFERENCES person_fk_t(PersonID)
+);
+
+
+-- Inserting data into person_fk_t table
+INSERT INTO person_fk_t (PersonID, lastname, Firstname, age) VALUES (1, 'Doe', 'John', 25);
+INSERT INTO person_fk_t (PersonID, lastname, Firstname, age) VALUES (2, 'Smith', 'Alice', 30);
+INSERT INTO person_fk_t (PersonID, lastname, Firstname, age) VALUES (3, 'Johnson', 'Bob', 40);
+
+-- Attempting to insert a person under 10 (will violate CHECK constraint)
+-- This query will result in an error
+-- INSERT INTO person_fk_t (PersonID, lastname, Firstname, age) VALUES (4, 'Youngster', 'Sam', 5);
+
+-- Inserting data into orders_fk_t table
+INSERT INTO orders_fk_t (OrderID, OrderNumber, PersonID) VALUES (101, 1001, 1);
+INSERT INTO orders_fk_t (OrderID, OrderNumber, PersonID) VALUES (102, 1002, 2);
+INSERT INTO orders_fk_t (OrderID, OrderNumber, PersonID) VALUES (103, 1003, 3);
+
+-- Attempting to insert an order with a non-existing PersonID (will violate FOREIGN KEY constraint)
+-- This query will result in an error
+-- INSERT INTO orders_fk_t (OrderID, OrderNumber, PersonID) VALUES (104, 1004, 4);
+
+
+select person_fk_t.personid, person_fk_t.firstname,orders_fk_t.orderid,orders_fk_t.ordernumber from 
+	person_fk_t, 
+	orders_fk_t 
+	where person_fk_t.personid = 2;
+	
+	
+################# ASSIGNMENT ########################
+
+CREATE TABLE salesman (
+SALESMAN_ID NUMERIC(5) NOT NULL,
+NAME VARCHAR(30) NOT NULL,
+CITY VARCHAR(30) NOT NULL,
+COMMISSION DECIMAL(5,2) NOT NULL,
+PRIMARY KEY (SALESMAN_ID)
+);
+
+CREATE TABLE customers (
+CUSTOMER_ID NUMERIC(5) NOT NULL,
+CUST_NAME VARCHAR(30) NOT NULL,
+CITY VARCHAR(15),
+GRADE NUMERIC(3),
+SALESMAN_ID NUMERIC(5) NOT NULL,
+PRIMARY KEY(CUSTOMER_ID),
+FOREIGN KEY(SALESMAN_ID) REFERENCES salesman(SALESMAN_ID)
+);
+
+CREATE TABLE orders (
+ORD_NO NUMERIC(5) NOT NULL,
+PURCH_AMT DECIMAL(8,2) NOT NULL,
+ORD_DATE DATE NOT NULL,
+CUSTOMER_ID NUMERIC(5) NOT NULL,
+SALESMAN_ID NUMERIC(5) NOT NULL,
+PRIMARY KEY (ORD_NO),
+FOREIGN KEY (CUSTOMER_ID) REFERENCES customers(CUSTOMER_ID),
+FOREIGN KEY (SALESMAN_ID) REFERENCES salesman(SALESMAN_ID)
+);
+
+
+
+-- Inserting values into salesman table
+INSERT INTO salesman (SALESMAN_ID, NAME, CITY, COMMISSION)
+VALUES 
+  (1, 'John Doe', 'New York', 0.05),
+  (2, 'Jane Smith', 'Los Angeles', 0.08),
+  (3, 'Bob Johnson', 'Chicago', 0.07),
+  (4, 'Alice Brown', 'Houston', 0.06),
+  (5, 'Charlie White', 'Miami', 0.09);
+
+-- Inserting values into customers table
+INSERT INTO customers (CUSTOMER_ID, CUST_NAME, CITY, GRADE, SALESMAN_ID)
+VALUES 
+  (101, 'Customer1', 'City1', 1, 1),
+  (102, 'Customer2', 'City2', 2, 2),
+  (103, 'Customer3', 'City3', 1, 3),
+  (104, 'Customer4', 'City4', 2, 4),
+  (105, 'Customer5', 'City5', 3, 5);
+
+-- Inserting values into orders table
+INSERT INTO orders (ORD_NO, PURCH_AMT, ORD_DATE, CUSTOMER_ID, SALESMAN_ID)
+VALUES 
+  (1, 100.50, '2024-01-28', 101, 1),
+  (2, 200.75, '2024-01-29', 102, 2),
+  (3, 150.20, '2024-01-30', 103, 3),
+  (4, 300.90, '2024-01-31', 104, 4),
+  (5, 250.60, '2024-02-01', 105, 5);
+
+############################################
+
+CREATE TABLE department(
+		DEPT_ID INT NOT NULL,
+		DEPT_NAME VARCHAR(30) NOT NULL,
+		LOCATION VARCHAR(30) NOT NULL,
+		PRIMARY KEY(DEPT_ID)
+);
+
+CREATE TABLE course(
+	COURSE_ID INT NOT NULL,
+	COURSE_NAME VARCHAR(30) NOT NULL,
+	COURSE_DURATION INT NOT NULL,
+	COURSE_FEE DOUBLE NOT NULL,
+	PRIMARY KEY(COURSE_ID)
+);
+
+CREATE TABLE student(
+	ID INT NOT NULL,
+	NAME VARCHAR(50) NOT NULL,
+	SECTION CHAR(1) NOT NULL,
+	DEPT_ID INT NOT NULL,
+	COURSE_ID INT NOT NULL,
+	PRIMARY KEY(ID),
+	FOREIGN KEY(DEPT_ID) REFERENCES department(DEPT_ID),
+	FOREIGN KEY(COURSE_ID) REFERENCES course(COURSE_ID)
+);
+
+-- Inserting values into department table
+INSERT INTO department (DEPT_ID, DEPT_NAME, LOCATION)
+VALUES 
+  (1, 'Computer Science', 'Building A, Room 101'),
+  (2, 'Electrical Engineering', 'Building B, Room 202'),
+  (3, 'Mechanical Engineering', 'Building C, Room 303'),
+  (4, 'Mathematics', 'Building D, Room 404'),
+  (5, 'Physics', 'Building E, Room 505');
+
+-- Inserting values into course table
+INSERT INTO course (COURSE_ID, COURSE_NAME, COURSE_DURATION, COURSE_FEE)
+VALUES 
+  (101, 'Introduction to Programming', 10, 500.00),
+  (102, 'Digital Circuits', 12, 600.00),
+  (103, 'Mechanics and Dynamics', 15, 700.00),
+  (104, 'Calculus I', 8, 400.00),
+  (105, 'Classical Mechanics', 14, 800.00);
+
+-- Inserting values into student table
+INSERT INTO student (ID, NAME, SECTION, DEPT_ID, COURSE_ID)
+VALUES 
+  (201, 'John Smith', 'A', 1, 101),
+  (202, 'Jane Doe', 'B', 2, 102),
+  (203, 'Bob Johnson', 'A', 3, 103),
+  (204, 'Alice Brown', 'B', 4, 104),
+  (205, 'Charlie White', 'A', 5, 105);
+
+
+############################# SELECT #####################
+
+- SELECT column1, column2 FROM TABLE;
+
+- SELECT * FROM TABLE;
+
+- SELECT DISTINCT(column_name) FROM TABLE_NAME;
+
+- SELECT COUNT(*) FROM TABLE;
+
+- SELECT * FROM TABLE LIMIT NUMBER;
+
+==> CONDITIONS 
+
+SELECT * FROM TABLE WHERE CONDITION;
+
+==> ORDER BY
+SELECT * FROM TABLE WHERE CONDITION ORDER BY ASC | DESC;
+
+==> SQL AGGREGATE FUNCTIONS
+	MIN()
+	MAX()
+	COUNT()
+	AVG()
+	SUM()
+	UPPER()
+	LOWER()
+	GROUP BY clause
+	HAVING clause
+	
+	
+	
+
+	
