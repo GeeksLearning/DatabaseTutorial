@@ -536,5 +536,74 @@ SELECT * FROM TABLE WHERE CONDITION ORDER BY ASC | DESC;
 	
 	
 	
+GROUP BY 
+=============================
+In SQL, The Group By statement is used for organizing similar data into groups. The data is further organized with the help of equivalent function. It means, if different rows in a precise column have the same values, it will arrange those rows in a group.
 
+=> CREATE A TABLE WITH following 
+ID,NAME,GENDER,DEPT_NAME,AGE,CITY,SALARY 
+
+CREATE TABLE emp_t(
+	ID INT PRIMARY KEY,
+	NAME VARCHAR(50) NOT NULL,
+	GENDER CHAR(1) NOT NULL,
+	DEPT_NAME VARCHAR(50) NOT NULL,
+	AGE INT NOT NULL,
+	CITY VARCHAR(10) NOT NULL,
+	SALARY DOUBLE NOT NULL
+);
+
+
+-- Example 1
+INSERT INTO emp_t (ID, NAME, GENDER, DEPT_NAME, AGE, CITY, SALARY) 
+VALUES (1, 'John Doe', 'M', 'IT', 30, 'New York', 80000.00) , 
+(2, 'Jane Smith', 'F', 'HR', 35, 'Los Angeles', 75000.00),
+(3, 'Bob Johnson', 'M', 'Finance', 40, 'Chicago', 90000.00);
+
+-- Add more INSERT statements as needed
+-- Example 2
+INSERT INTO emp_t (ID, NAME, GENDER, DEPT_NAME, AGE, CITY, SALARY) 
+VALUES (4, 'Alice Brown', 'F', 'Marketing', 28, 'San Francisco', 70000.00),
+(5, 'Charlie Wilson', 'M', 'Sales', 32, 'Houston', 85000.00),
+(6, 'Eva Martinez', 'F', 'IT', 29, 'Miami', 82000.00);
+
+-- Example 3
+INSERT INTO emp_t (ID, NAME, GENDER, DEPT_NAME, AGE, CITY, SALARY) 
+VALUES (7, 'David Miller', 'M', 'Engineering', 38, 'Seattle', 95000.00),
+(8, 'Sophia Lee', 'F', 'Finance', 33, 'Boston', 88000.00),
+(9, 'Michael Chen', 'M', 'Marketing', 31, 'Atlanta', 78000.00)
+;
+
+
+-- Example 4
+INSERT INTO emp_t (ID, NAME, GENDER, DEPT_NAME, AGE, CITY, SALARY) 
+VALUES (10, 'Olivia Davis', 'F', 'Sales', 27, 'Dallas', 72000.00),
+(11, 'Daniel Wang', 'M', 'Engineering', 36, 'San Diego', 92000.00),
+(12, 'Isabella Hernandez', 'F', 'IT', 25, 'Denver', 78000.00);
+
+
+ALTER TABLE emp_t MODIFY COLUMN CITY VARCHAR(30);
+
+QUESTIONS:
+====================
+
+1.Display name,dept_name,salary from employee
+2.Dislay employees count belongs to male gender
+3.Display employees belongs to IT department and gender Male 
+4.Display all employees whos city starts with S OR C
+5.Display the unqiue dept_names in emp_t table;
+6.Display the employees department wise count;
+7.Display the employee average salary on department wise;
+8.Display the employees total salary on departwise;
+9.Display the employees based on age wise
+10.Display the employees based on department & gender
+11.Display the employee(s) who salary is having highest salary earned by all employees.
+	- find highest salary from table 
+	- filter the empolyees based on input from first query 
 	
+
+ANSWERS 
+-------------
+1.SELECT name,dept_name,salary FROM emp_t;
+2.SELECT GENDER,COUNT(*) FROM emp_t WHERE gender='M';
+3.SELECT * FROM emp_t WHERE dept_name = 'IT' AND GENDER = 'M';
