@@ -27,6 +27,49 @@ select * from employees -- outer query
 	
 -- Scalary Subquery: always return one row & one column 
 
+--- JOIN CLAUSE 
+SELECT *
+FROM employees e1
+JOIN ( SELECT avg(salary) AS sal FROM employees ) e2
+ON e1.salary > e2.sal;
+
+SELECT e1.*
+FROM employees e1
+JOIN ( SELECT avg(salary) AS sal FROM employees ) e2
+ON e1.salary > e2.sal;
+
+
+
+-- Multi Row SubQuery
+-- multi row & multi column (IN)
+-- single row & multiple column (IN , NOT IN)
+select * from employees;
+
+select dept_name, max(salary) 
+from employees
+group by dept_name;
+
+
+
+select * from employees 
+where (dept_name,salary) 
+			in (
+			select dept_name, avg(salary) 
+			from employees
+			group by dept_name
+            );
+		
+
+
+select e1.* from employees e1
+JOIN (select dept_name, avg(salary) as avgsal from employees group by dept_name) e2
+ON e1.dept_name = e2.dept_name AND e1.salary > e2.avgsal;
+
+
+
+
+
+
 
 
 
