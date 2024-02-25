@@ -941,9 +941,9 @@ VALUES(1,1,20,'2017-01-02'),
 #########################################
 
 CREATE TABLE department(
-	dep_id INTEGER,
-	dep_name VARCHAR(20) NOT NULL,
-	locaion VARCHAR(15) NOT NULL,
+	depid INTEGER,
+	deptname VARCHAR(20) NOT NULL,
+	location VARCHAR(15) NOT NULL,
 	PRIMARY KEY(dep_id)
 );
 
@@ -952,12 +952,12 @@ CREATE TABLE employees (
 	empId INTEGER,
 	empName VARCHAR(30) NOT NULL,
 	jobName VARCHAR(30) NOT NULL,
-	dept_name VARCHAR(30) NOT NULL,
+	deptname VARCHAR(30) NOT NULL,
 	salary double NOT NULL
 );
 
 -- INSERT queries for department table
-INSERT INTO department (dep_id, dep_name, locaion) VALUES 
+INSERT INTO department (depid, deptname, location) VALUES 
 (1, 'Sales', 'Mumbai'),
 (2, 'Human Resources', 'Delhi'),
 (3, 'Finance', 'Bangalore'),
@@ -968,7 +968,7 @@ INSERT INTO department (dep_id, dep_name, locaion) VALUES
 (8, 'Customer Service', 'Ahmedabad');
 
 -- INSERT queries for employees table
-INSERT INTO employees (empId, empName, jobName, dept_name, salary) VALUES
+INSERT INTO employees (empId, empName, jobName, deptname, salary) VALUES
 (101, 'Amit Patel', 'Sales Executive', 'Sales', 55000),
 (102, 'Priya Sharma', 'HR Manager', 'Human Resources', 70000),
 (103, 'Rahul Gupta', 'Financial Analyst', 'Finance', 60000),
@@ -1001,3 +1001,47 @@ INSERT INTO employees (empId, empName, jobName, dept_name, salary) VALUES
 (130, 'Aarti Gupta', 'IT Analyst', 'IT', 58000);
 
 
+
+
+## TYPES 
+1 .Scalary SubQuery  always returns -->  single row & single col
+2. Multi Row SubQuery always returns --> more than one row 
+	- single row & multiple columns
+	- multiple row & single column
+	
+3. Co-Releated Sub Query always have relation with main query.
+
+
+####
+
+CREATE TABLE sales (
+	store_id INT NOT NULL,
+	store_name VARCHAR(255) NOT NULL,
+	product_name VARCHAR(255) NOT NULL,
+	quantity INT NOT NULL,
+	price INT NOT NULL
+);
+
+INSERT INTO sales (store_id, store_name, product_name, quantity, price) VALUES
+(1, 'Apple Store A', 'Iphone 13 Pro', 1, 1000),
+(1, 'Apple Store A', 'Macbook pro 14', 5, 6000),
+(1, 'Apple Store A', 'Airpods Pro', 2, 500),
+(2, 'Apple Store B', 'Iphone 13 Pro', 2, 2000),
+(3, 'Apple Store C', 'Iphone 12 Pro', 1, 750),
+(3, 'Apple Store C', 'Macbook pro 14', 1, 2000);
+(4, 'Apple Store D', 'Macbook M2 Air', 2, 1500);
+(4, 'Apple Store D', 'Iphone 15 Pro', 1, 2500);
+
+
+#####################
+
+CREATE TABLE employee_history (
+	empId INTEGER,
+	empName VARCHAR(30) NOT NULL,
+	deptNname VARCHAR(30) NOT NULL,
+	salary double NOT NULL,
+    location VARCHAR(255) NOT NULL
+);
+
+
+####################
