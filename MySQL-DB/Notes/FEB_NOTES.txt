@@ -6,7 +6,7 @@ SESSION-1
 	1TB 		- 1024GB 
 	1PB(peta byte) - 1024TB 
 	1EB 		- 1024PB 
-	1ZB 		- 1024EB
+	1ZB 		- 1024EB (64*1024*1024*1024) TB
 	1YB 		- 1024ZB
 -. Different types of data?
 	- Structured
@@ -58,16 +58,21 @@ POPULAR COMMANDS (NOTE: SQL is Case insensitive Language)
 	);
 	
 	
--- insertion 
-->.INSERT INTO persons_t (person_id,person_name,gender,age,savings,address) VALUES (1,'ram singh', 'M', 45,70000.56,'Noida');
+-- insertion for all columns 
+	INSERT INTO persons_t (person_id,person_name,gender,age,savings,address) VALUES (1,'ram singh', 'M', 45,70000.56,'Noida');
 
--> INSERT INTO persons_t VALUES(2,'priya singh', 'F', 35,60000.56,'Delhi');
+	INSERT INTO persons_t VALUES(2,'priya singh', 'F', 35,60000.56,'Delhi');
 
-->. INSERT INTO persons_t VALUES(3,'kumar yadav', 'M', 32,52000.56,'UP'), 
-(4,'shiva rathode', 'M', 37,90000.56,'MP'),
-(5,'Lal nayak', 'M', 65,80000.56,'AP');
 
--> INSERT INTO persons_t (person_id,person_name,gender,age,savings) VALUES (7,'sonia signh', 'F', 25,20000.56);
+-- multiple row insertion 
+
+	INSERT INTO persons_t VALUES(3,'kumar yadav', 'M', 32,52000.56,'UP'), 
+	(4,'shiva rathode', 'M', 37,90000.56,'MP'),
+	(5,'Lal nayak', 'M', 65,80000.56,'AP');
+
+-- insertion for specific columns 
+	
+	INSERT INTO persons_t (person_id,person_name,gender,age,savings) VALUES (7,'sonia signh', 'F', 25,20000.56);
 
 ---------------------------------------
 INSERT INTO persons_t (person_id, person_name, gender, age, savings, address) VALUES
@@ -157,3 +162,49 @@ INSERT INTO persons_nn (ID, LastName, FirstName, Age) VALUES (9, NULL, 'Suresh',
 INSERT INTO persons_nn (ID, LastName, Age) VALUES (10, 'Sharma', 42);   					-- INvalid FirstName cannot be NULL
 
 INSERT INTO persons_nn (ID, LastName, FirstName VALUES (10, 'Sharma','Sneha');   		    -- Valid
+
+
+
+########## DATATYPES ################
+- String data types 
+===============================
+	- CHAR(size) : 256
+	- VARCHAR(size) : 65536
+	- TEXT 
+		- TINY TEXT 
+		- TEXT 
+		- MEDIUM TEXT 
+		- LARGE TEXT 
+	- BLOB 
+		- TINY BLOB 
+		- BLOB 
+		- MEDIUM BLOB 
+		- LARGE BLOB 
+		
+	- BINARY(size) 
+	- VARBINARY(size) 
+	- ENUM (val1, val2,val3) 
+	
+- Numeric Data Types
+==========================
+	- BIT 
+	- BOOLEAN , BOOL 
+	- INT 
+		-TINT INT 
+		- INT 
+		- MEDIUM INT 
+		- BIG INT 
+	- FLOAT(size,d) or FLOAT(p) : p : 0-24 --> Float() , 25-53 --> Double() 
+	- Double(size,d) 
+	- DECIMAL(size,d) : size : 65, d: 30 
+	
+Date and Time Data Types
+==============================
+	DATE : YYYY-MM-DD
+	DATETIME: YYY-MM-DD hh:mm:ss
+	TIMESTAMP: 
+	TIME: hh:mm:ss
+	YEAR: YYYY 
+	
+	
+		
