@@ -207,4 +207,158 @@ Date and Time Data Types
 	YEAR: YYYY 
 	
 	
-		
+
+### CONSTRAINTS ### 
+======================
+### NOT NULL 
+	CREATE TABLE persons_nn (
+    ID int NOT NULL,
+    LastName varchar(255) NOT NULL,
+    FirstName varchar(255) NOT NULL,
+    Age int
+	);
+	
+	ALTER TABLE persons_nn
+	MODIFY Age int NOT NULL;
+	
+###  UNQIUE 
+
+- UNIQUE constraint accepts default value as NULL.
+
+
+CREATE TABLE persons_unq (
+    id int PRIMARY KEY,
+    lastname varchar(255) NOT NULL,
+    firstname varchar(255),
+    age int,
+	email VARCHAR(50),
+    CONSTRAINT UC_Person UNIQUE (email)
+);
+
+INSERT INTO persons_unq (id, lastname, firstname, age, email) VALUES
+(1, 'Kumar', 'Ravi', 35, 'ravi.kumar@example.com'),
+(2, 'Patel', 'Sneha', 28, 'sneha.patel@example.com'),
+(3, 'Sharma', 'Amit', 42, 'amit.sharma@example.com'),
+(4, 'Singh', 'Priya', 30, 'priya.singh@example.com'),
+(5, 'Das', 'Suman', 25, 'suman.das@example.com');
+
+
+INSERT INTO persons_unq (id, lastname, firstname, age, email) VALUES 
+(7, 'Kumar', 'Ram', 37, 'r.kumar@example.com');
+
+INSERT INTO persons_unq (id, lastname, firstname, age, email) VALUES 
+(8, 'Kumar', 'Rakesh', 56, 'r.kumar@example.com');
+
+
+INSERT INTO persons_unq (id, lastname, firstname, age, email) VALUES 
+(9, 'Shiva', 'Rakesh', 45, 'r.kumar@example.com');
+
+INSERT INTO persons_unq (id, lastname, firstname, age, email) VALUES 
+(9, 'kumar', 'Shiva', 45, 'r.kumar@example.com');
+
+
+
+-- 
+
+ALTER TABLE persons_unq
+	ADD CONSTRAINT UC_persons UNIQUE (firstname,email);
+	
+ALTER TABLE persons_unq
+DROP CONSTRAINT UC_persons;
+
+
+
+---------------
+### PRIMARY 
+---------------
+    The PRIMARY KEY constraint uniquely identifies each record in a table.
+
+    Primary keys must contain UNIQUE values, and cannot contain NULL values.
+
+    A table can have only ONE primary key; and in the table, this primary key can consist of single or multiple columns (fields).
+	
+
+### CHECK 
+------------------
+
+- the default value for check constraint column is NULL 
+
+	CREATE TABLE persons_chq (
+		ID int,
+		LastName varchar(255) NOT NULL,
+		FirstName varchar(255),
+		Age int,
+		CONSTRAINT pk_persons_chq PRIMARY KEY(ID),
+		CONSTRAINT check_age CHECK (Age>=18)
+	);
+	
+INSERT INTO persons_chq (ID, LastName, FirstName, Age) VALUES
+(1, 'Sharma', 'Rahul', 25),
+(2, 'Patel', 'Neha', 30),
+(3, 'Kumar', 'Anita', 22),
+(4, 'Singh', 'Rajesh', 40),
+(5, 'Das', 'Meera', 35);
+
+
+INSERT INTO persons_chq (ID, LastName, FirstName, Age) VALUES
+(6, 'Gupta', 'Amit', 16), -- Age less than 18
+(7, 'Reddy', 'Sunita', 14), -- Age less than 18
+(8, 'Choudhary', 'Vivek', 17); -- Age less than 18
+
+
+### DEFAULT Constraint
+
+CREATE TABLE persons_default (
+    ID int PRIMARY KEY,
+    LastName varchar(255) NOT NULL,
+    FirstName varchar(255),
+    Age int CHECK (Age >= 18),
+    City varchar(255) DEFAULT 'Newyork'
+);
+
+INSERT INTO persons_default (ID, LastName, FirstName, Age, City) VALUES
+(1, 'Gupta', 'Amit', 25, 'Mumbai'),
+(2, 'Patel', 'Neha', 30, 'Ahmedabad'),
+(3, 'Kumar', 'Anita', 22, 'Delhi'),
+(4, 'Singh', 'Rajesh', 40, 'Bangalore'),
+(5, 'Das', 'Meera', 35, 'Kolkata');
+
+INSERT INTO persons_default (ID, LastName, FirstName, Age, City) VALUES
+(6, 'Sharma', 'Rahul', 16, 'New Delhi'), -- Age less than 18
+(7, 'Reddy', 'Sunita', 14, 'Hyderabad'), -- Age less than 18
+(8, 'Choudhary', 'Vivek', 17, 'Jaipur'); -- Age less than 18
+
+
+
+CREATE TABLE orders_default (
+    ID int NOT NULL,
+    OrderNumber int NOT NULL,
+    OrderDate DATETIME  DEFAULT CURRENT_TIMESTAMP
+);
+
+
+### AUTO INCREMENT Field
+CREATE TABLE persons_autoinc (
+    Personid int AUTO_INCREMENT,
+    LastName varchar(255) NOT NULL,
+    FirstName varchar(255),
+    Age int,
+    PRIMARY KEY (Personid)
+);
+
+
+INSERT INTO persons_autoinc (LastName, FirstName, Age) VALUES
+('Gupta', 'Amit', 25),
+('Patel', 'Neha', 30),
+('Kumar', 'Anita', 22),
+('Singh', 'Rajesh', 40),
+('Das', 'Meera', 35);
+
+ALTER TABLE persons_autoinc AUTO_INCREMENT=101;
+
+INSERT INTO persons_autoinc (LastName, FirstName, Age) VALUES
+('Sharma', 'Rahul', 28),
+('Reddy', 'Sunita', 26),
+('Choudhary', 'Vivek', 33),
+('Verma', 'Priya', 29),
+('Yadav', 'Sneha', 31);
